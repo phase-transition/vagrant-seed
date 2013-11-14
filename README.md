@@ -1,6 +1,4 @@
-# vagrant-ng-express
-
-
+# vagrant-seed
 
 ## Instructions
 
