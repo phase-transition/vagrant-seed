@@ -36,6 +36,7 @@ class ghost($node_version = "v0.10.22") {
            "forever",
            "yo",
            "generator-angular",
+           "generator-nglue",
            "protractor",
            "express",
            "karma",
@@ -49,11 +50,11 @@ class ghost($node_version = "v0.10.22") {
     #   require => Exec['install-node'],
     # }
 
-    # exec { 'git-clone-zsh-env': 
-    #   cwd => "/home/vagrant/",
-    #   command => "/usr/bin/git clone https://github.com/phase-transition/zsh-env.git",
-    #   require => Package["git-core"],
-    # }
+    exec { 'git-clone-zsh-env': 
+      cwd => "/home/vagrant/",
+      command => "/usr/bin/git clone https://github.com/phase-transition/zsh-env.git",
+      require => Package["git-core"],
+    }
 
     exec { 'git-clone-ghost': 
       cwd => "/home/vagrant/",
@@ -65,6 +66,6 @@ class ghost($node_version = "v0.10.22") {
       cwd => "/home/vagrant",
       command => "sh setup.sh", 
       #command => "chown -R vagrant:vagrant /home/vagrant ", 
-      require => [File['setup.sh'], Exec['git-clone-zsh-env']],
+      require => [File['setup.sh'], Exec['git-clone-zsh-env'], Exec['install-node']],
     }
 }
